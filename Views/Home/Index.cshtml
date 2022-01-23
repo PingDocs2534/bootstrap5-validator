@@ -1,0 +1,49 @@
+﻿@model bootstrap5.Models.ViewModels.IndexViewModel
+@using bootstrap5.App_Start.Helpers
+@{
+    ViewBag.Title = "Home Page";
+
+}
+
+<div class="container mt-3">
+    <h3>Form Validation</h3>
+    <p>Try to submit the form.</p>
+
+    <form id="test-form" action="@Url.Action("Login")">
+        <div class="mb-3 mt-3">
+            <label for="uname" class="form-label">Username:</label>
+            <input type="text" class="form-control need-validate" validate-on-executing="onValidate" id="UserName" placeholder="Enter username" name="UserName">
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div class="mb-3">
+            <label for="pwd" class="form-label ">Password:</label>
+            <input type="password" class="form-control need-validate" id="Password" placeholder="Enter password" name="Password" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input need-validate" type="checkbox" id="myCheck" name="remember" required>
+            <label class="form-check-label" for="myCheck">I agree on blabla.</label>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Check this checkbox to continue.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/Scripts/custom-bootstrap-5/validator/bootstrap-validator-5.js"></script>
+@section scripts{
+    @MvcHelper.ValidateModelStatusBootstrap5(ViewData.ModelState)
+    <script>
+        const custom = new BootstrapValidator5("#test-form");
+
+        function onValidate(el) {
+            if ($(el).val().length === 0) {
+                return "Reqired Test";
+            }
+        }
+
+    </script>
+}
