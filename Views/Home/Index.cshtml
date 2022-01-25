@@ -5,20 +5,22 @@
 
 }
 
+@Html.ValidateBt5()
+
 <div class="container mt-3">
     <h3>Form Validation</h3>
     <p>Try to submit the form.</p>
 
-    <form id="test-form" action="@Url.Action("Login")">
+    <form id="test-form"class="need-validate" novalidate action="@Url.Action("Login")">
         <div class="mb-3 mt-3">
             <label for="uname" class="form-label">Username:</label>
-            <input type="text" class="form-control need-validate" validate-on-executing="onValidate" id="UserName" placeholder="Enter username" name="UserName">
-            <div class="valid-feedback">Valid.</div>
-            <div class="invalid-feedback">Please fill out this field.</div>
+            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control need-validate", validate_on_executing = "onValidate", placeholder = "Enter username", required="" })
+            @Html.ValidationMessageBT5For(x => x.UserName, "Please fill out this field test.", new { @Class = "test", id = "div-test" })
+
         </div>
         <div class="mb-3">
             <label for="pwd" class="form-label ">Password:</label>
-            <input type="password" class="form-control need-validate" id="Password" placeholder="Enter password" name="Password" required>
+            @Html.PasswordFor(x => x.Password, new { @class = "form-control need-validate", placeholder = "Enter password", required = "" })
             <div class="valid-feedback">Valid.</div>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
@@ -34,16 +36,15 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="~/Scripts/custom-bootstrap-5/validator/bootstrap-validator-5.js"></script>
-@section scripts{
-    @MvcHelper.ValidateModelStatusBootstrap5(ViewData.ModelState)
+@*@section scripts{
     <script>
-        const custom = new BootstrapValidator5("#test-form");
+        //const custom = new BootstrapValidator5("#test-form");
 
-        function onValidate(el) {
-            if ($(el).val().length === 0) {
-                return "Reqired Test";
-            }
-        }
+        //function onValidate(el) {
+        //    if ($(el).val().length === 0) {
+        //        return "Reqired Test";
+        //    }
+        //}
 
     </script>
-}
+}*@

@@ -22,6 +22,8 @@ namespace bootstrap5.Controllers
             return View("Index", model);
         }
 
+        //window.location = window.location.origin + window.location.pathname
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
